@@ -1,21 +1,21 @@
 # Experiment3
 
-A simple GUI for generating videos using AI. Supports text, image, or video prompts.
-The application now uses [moviepy](https://zulko.github.io/moviepy/) to build
-short clips directly from the provided content. For text prompts a video with
-the text is generated. Images are converted into a short clip and optional text
-overlays can be added to existing videos.
+A simple GUI application for generating short videos using AI. It accepts text,
+image, or video prompts and relies on
+[moviepy](https://zulko.github.io/moviepy/) to build clips directly from the
+provided content. Text prompts are rendered into a video, images become short
+clips, and optional text overlays can be added on top of existing videos.
 
 ## Setup
 
-Install dependencies:
+Install dependencies (Python 3.8 or later is recommended):
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Make sure `ffmpeg` is installed and available in your system path as
-`moviepy` relies on it for encoding videos.
+Make sure [`ffmpeg`](https://ffmpeg.org/) is installed and available on your
+system `PATH` as `moviepy` relies on it to encode videos.
 
 Run the application:
 
@@ -25,6 +25,7 @@ python video_generator.py
 
 Select the desired input type and optionally provide a source file. Enter a
 prompt to overlay on the video and specify an output filename. Generated videos
-will be saved using the selected quality setting.
+are saved in the current working directory using the selected quality setting.
 
-This has been tested on Windows and Linux.
+This application has been tested on Windows and Linux. Running it in a headless
+environment may require additional Qt configuration.
