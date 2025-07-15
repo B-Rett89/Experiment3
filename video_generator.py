@@ -1,15 +1,21 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
+import qdarkstyle
 from moviepy import TextClip, ImageClip, VideoFileClip, CompositeVideoClip
 
-class VideoGeneratorGUI(QtWidgets.QWidget):
+class VideoGeneratorGUI(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("AI Video Generator")
         self.init_ui()
 
     def init_ui(self):
-        layout = QtWidgets.QVBoxLayout()
+        central = QtWidgets.QWidget()
+        self.setCentralWidget(central)
+        main_layout = QtWidgets.QHBoxLayout(central)
+
+        controls = QtWidgets.QWidget()
+        layout = QtWidgets.QVBoxLayout(controls)
 
         # Input type selection
         self.input_type = QtWidgets.QComboBox()
@@ -55,7 +61,15 @@ class VideoGeneratorGUI(QtWidgets.QWidget):
         self.generate_btn.clicked.connect(self.generate_video)
         layout.addWidget(self.generate_btn)
 
-        self.setLayout(layout)
+        main_layout.addWidget(controls)
+
+        # Preview placeholder
+        self.preview = QtWidgets.QLabel("Preview")
+        self.preview.setAlignment(QtCore.Qt.AlignCenter)
+        self.preview.setStyleSheet(
+            "background-color: #232323; color: #aaaaaa; border: 1px solid #444;"
+        )
+        main_layout.addWidget(self.preview, 1)
 
     def browse_file(self):
         path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Select File")
@@ -111,6 +125,7 @@ class VideoGeneratorGUI(QtWidgets.QWidget):
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     gui = VideoGeneratorGUI()
     gui.show()
     sys.exit(app.exec_())
